@@ -7,6 +7,8 @@ from src.logger import logging
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
+
+
 ##THESE are  the nputs for the data ingetion it shows whre to store the data
 @dataclass
 class DataIngestionConfig:
@@ -42,7 +44,14 @@ class DataIngestion:
             }
         except Exception as e:
             raise CustomException(e,sys)
+
+
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
             
 if __name__=="__main__":
     obj=DataIngestion()
-    obj.initiate_data_ingestion()
+    train_data,test_data=obj.initiate_data_ingestion()
+
+    data_transformation=DataTransformation()
+    train_arr,test_arr,_=data_transformation.initiate_data_transformation(train_data,test_data)
